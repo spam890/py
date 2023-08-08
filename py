@@ -180,5 +180,53 @@ romanStr = input("Enter a Roman Number : ")
 print(roman2Dec(romanStr))
 
 5A
+import re
+
+def isphonenumber_regex(number):
+    pattern = r'^\d{3}-\d{3}-\d{4}$'
+    return re.match(pattern, number) is not None
+
+# Test the function
+phone_number = "415-555-4242"
+if isphonenumber_regex(phone_number):
+    print(f"{phone_number} is a valid phone number.")
+else:
+    print(f"{phone_number} is not a valid phone number.")
+    
+5B
+import re
+
+def find_phone_numbers(text):
+    phone_pattern = r'\+\d{11}'
+    phone_numbers = re.findall(phone_pattern, text)
+    return phone_numbers
+
+def find_email_addresses(text):
+    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    email_addresses = re.findall(email_pattern, text)
+    return email_addresses
+
+def main():
+    file_path = 'textfile.txt'  # Update this with the path to your text file
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+            phone_numbers = find_phone_numbers(content)
+            email_addresses = find_email_addresses(content)
+            
+            print("Phone Numbers found:")
+            for number in phone_numbers:
+                print(number)
+            
+            print("\nEmail Addresses found:")
+            for email in email_addresses:
+                print(email)
+    except FileNotFoundError:
+        print(f"File not found: {file_path}")
+    except Exception as e:
+        print("An error occurred:", str(e))
+
+if __name__ == "__main__":
+    main()
 
 
