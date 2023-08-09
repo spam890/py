@@ -284,3 +284,108 @@ for match in matches:
 
 print(match)
 
+
+
+
+
+
+
+import re
+
+2
+
+def isphonenumber (numStr);
+
+3
+
+if len(numStr) != 12: return False
+
+4
+
+5
+
+for i in range(len(numStr)): if i=-3 or i==7:
+
+6
+
+7
+
+if numstr[i] != "-";
+
+8
+
+return False
+
+9
+
+else:
+
+10
+
+if numstr[i].isdigit() == False:
+
+11
+
+return False
+
+12
+
+return True
+
+A
+
+23
+
+13
+
+14
+
+15
+
+def chkphonenumber (numStr):
+
+ph_no_pattern= re.compile(r'^\d{3}-\d{3}-\d{4}$") if ph_no_pattern.match(numStr):
+
+return True else:
+
+16
+
+17
+
+18
+
+19
+
+return False
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+ph_num = input("Enter a phone number: ")
+
+print("without using Regular Expression") if isphonenumber (ph_num):
+
+print("Valid phone number")
+
+else:
+
+print("Invalid phone number")
+
+print("Using Regular Expression") if chkphonenumber (ph_num): 27
+
+print("Valid phone number") 29
+
+else:
+
+print("Invalid phone number")
