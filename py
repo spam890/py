@@ -230,3 +230,57 @@ if __name__ == "__main__":
     main()
 
 
+import re
+
+1
+
+2
+
+3
+
+phone_regex = re.compile(r'\+\d{12}')
+
+email_regex = re.compile(r'[A-Za-z0-9. ]+@[A-Za-z0-9]+\.[A-Za-z]{2,}')
+
+4
+
+15
+
+16
+
+with open('example.txt', 'r') as f:
+
+7
+
+8
+
+9
+
+10
+
+for line in f:
+
+I
+
+# Search for phone numbers in the line
+
+matches = phone_regex.findall(line) for match in matches:
+
+print (match)
+
+11
+
+12
+
+13
+
+14
+
+15
+
+matches email_regex. findall (line)
+
+for match in matches:
+
+print(match)
+
