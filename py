@@ -389,3 +389,169 @@ print("Valid phone number") 29
 else:
 
 print("Invalid phone number")
+
+6a
+import os.path
+import sys
+fname = input("Enter the filename : ")
+if not os.path.isfile(fname):
+ print("File", fname, "doesn't exists")
+ sys.exit(0)
+infile = open(fname, "r")
+lineList = infile.readlines()
+for i in range(20):
+ print(i+1, ":", lineList[i])
+ word = input("Enter a word : ")
+cnt = 0
+for line in lineList:
+ cnt += line.count(word)
+print("The word", word, "appears", cnt, "times in the file")
+
+
+6b
+
+import os
+import sys
+import pathlib
+import zipfile
+dirName = input("Enter Directory name that you want to backup : ")
+if not os.path.isdir(dirName):
+ print("Directory", dirName, "doesn't exists")
+ sys.exit(0)
+
+curDirectory = pathlib.Path(dirName)
+
+with zipfile.ZipFile("myZip.zip", mode="w") as archive:
+ for file_path in curDirectory.rglob("*"):
+ archive.write(file_path, arcname=file_path.relative_to(curDirectory))
+
+if os.path.isfile("myZip.zip"):
+ print("Archive", "myZip.zip", "created successfully")
+else:
+ print("Error in creating zip archive")
+
+ 7a 
+
+ import math
+class Shape:
+ def __init__(self):
+ self.area = 0
+ self.name = ""
+
+ def showArea(self):
+ print("The area of the", self.name, "is", self.area, "units")
+
+class Circle(Shape):
+ def __init__(self,radius):
+ self.area = 0
+ self.name = "Circle"
+ self.radius = radius
+
+ def calcArea(self):
+ self.area = math.pi * self.radius * self.radius
+
+class Rectangle(Shape):
+ def __init__(self,length,breadth):
+ self.area = 0
+ self.name = "Rectangle"
+ self.length = length
+ self.breadth = breadth
+
+ def calcArea(self):
+ self.area = self.length * self.breadth
+class Triangle(Shape):
+ def __init__(self,base,height):
+ self.area = 0
+ self.name = "Triangle"
+ self.base = base
+ self.height = height
+
+ def calcArea(self):
+ self.area = self.base * self.height / 2
+
+
+c1 = Circle(5)
+c1.calcArea()
+c1.showArea()
+r1 = Rectangle(5, 4)
+r1.calcArea()
+r1.showArea()
+t1 = Triangle(3, 4)
+t1.calcArea()
+t1.showArea()
+
+7b
+
+class Employee:
+ def __init__(self):
+ self.name = ""
+ self.empId = ""
+ self.dept = ""
+ self.salary = 0
+
+ def getEmpDetails(self):
+ self.name = input("Enter Employee name : ")
+ self.empId = input("Enter Employee ID : ")
+ self.dept = input("Enter Employee Dept : ")
+ self.salary = int(input("Enter Employee Salary : "))
+
+ def showEmpDetails(self):
+ print("Employee Details")
+ print("Name : ", self.name)
+ print("ID : ", self.empId)
+ print("Dept : ", self.dept)
+ print("Salary : ", self.salary)
+
+ def updtSalary(self):
+ self.salary = int(input("Enter new Salary : "))
+ print("Updated Salary", self.salary)
+
+e1 = Employee()
+e1.getEmpDetails()
+e1.showEmpDetails()
+e1.updtSalary()
+
+8
+
+class PaliStr:
+ def __init__(self):
+ self.isPali = False
+
+ def chkPalindrome(self, myStr):
+ if myStr == myStr[::-1]:
+ self.isPali = True
+ else:
+ self.isPali = False
+
+ return self.isPali
+
+class PaliInt(PaliStr):
+ def __init__(self):
+ self.isPali = False
+
+ def chkPalindrome(self, val):
+ temp = val
+ rev = 0
+ while temp != 0:
+ dig = temp % 10
+ rev = (rev*10) + dig
+ temp = temp //10
+
+ if val == rev:
+ self.isPali = True
+ else:
+ self.isPali = False
+
+ return self.isPali
+st = input("Enter a string : ")
+stObj = PaliStr()
+if stObj.chkPalindrome(st):
+ print("Given string is a Palindrome")
+else:
+ print("Given string is not a Palindrome")
+val = int(input("Enter a integer : ")) 
+intObj = PaliInt()
+if intObj.chkPalindrome(val):
+ print("Given integer is a Palindrome")
+else:
+ print("Given integer is not a Palindrome")
