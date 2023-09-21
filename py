@@ -274,43 +274,44 @@ else:
 
  7a 
 
- import math
-class Shape:
- def __init__(self):
- self.area = 0
- self.name = ""
+import math
 
- def showArea(self):
- print("The area of the", self.name, "is", self.area, "units")
+class Shape:
+    def __init__(self):
+        self.area = 0
+        self.name = ""
+
+    def showArea(self):
+        print("The area of the", self.name, "is", self.area, "units")
 
 class Circle(Shape):
- def __init__(self,radius):
- self.area = 0
- self.name = "Circle"
- self.radius = radius
+    def __init__(self, radius):
+        self.area = 0
+        self.name = "Circle"
+        self.radius = radius
 
- def calcArea(self):
- self.area = math.pi * self.radius * self.radius
+    def calcArea(self):
+        self.area = math.pi * self.radius * self.radius
 
 class Rectangle(Shape):
- def __init__(self,length,breadth):
- self.area = 0
- self.name = "Rectangle"
- self.length = length
- self.breadth = breadth
+    def __init__(self, length, breadth):
+        self.area = 0
+        self.name = "Rectangle"
+        self.length = length
+        self.breadth = breadth
 
- def calcArea(self):
- self.area = self.length * self.breadth
+    def calcArea(self):
+        self.area = self.length * self.breadth
+
 class Triangle(Shape):
- def __init__(self,base,height):
- self.area = 0
- self.name = "Triangle"
- self.base = base
- self.height = height
+    def __init__(self, base, height):
+        self.area = 0
+        self.name = "Triangle"
+        self.base = base
+        self.height = height
 
- def calcArea(self):
- self.area = self.base * self.height / 2
-
+    def calcArea(self):
+        self.area = self.base * self.height / 2
 
 c1 = Circle(5)
 c1.calcArea()
@@ -322,81 +323,230 @@ t1 = Triangle(3, 4)
 t1.calcArea()
 t1.showArea()
 
+
 7b
 
 class Employee:
- def __init__(self):
- self.name = ""
- self.empId = ""
- self.dept = ""
- self.salary = 0
+    def __init__(self):
+        self.name = ""
+        self.empId = ""
+        self.dept = ""
+        self.salary = 0
 
- def getEmpDetails(self):
- self.name = input("Enter Employee name : ")
- self.empId = input("Enter Employee ID : ")
- self.dept = input("Enter Employee Dept : ")
- self.salary = int(input("Enter Employee Salary : "))
+    def getEmpDetails(self):
+        self.name = input("Enter Employee name: ")
+        self.empId = input("Enter Employee ID: ")
+        self.dept = input("Enter Employee Dept: ")
+        self.salary = int(input("Enter Employee Salary: "))
 
- def showEmpDetails(self):
- print("Employee Details")
- print("Name : ", self.name)
- print("ID : ", self.empId)
- print("Dept : ", self.dept)
- print("Salary : ", self.salary)
+    def showEmpDetails(self):
+        print("Employee Details")
+        print("Name:", self.name)
+        print("ID:", self.empId)
+        print("Dept:", self.dept)
+        print("Salary:", self.salary)
 
- def updtSalary(self):
- self.salary = int(input("Enter new Salary : "))
- print("Updated Salary", self.salary)
+    def updtSalary(self):
+        self.salary = int(input("Enter new Salary: "))
+        print("Updated Salary:", self.salary)
 
 e1 = Employee()
 e1.getEmpDetails()
 e1.showEmpDetails()
 e1.updtSalary()
 
+
 8
 
 class PaliStr:
- def __init__(self):
- self.isPali = False
+    def __init__(self):
+        self.isPali = False
 
- def chkPalindrome(self, myStr):
- if myStr == myStr[::-1]:
- self.isPali = True
- else:
- self.isPali = False
-
- return self.isPali
+    def chkPalindrome(self, myStr):
+        if myStr == myStr[::-1]:
+            self.isPali = True
+        else:
+            self.isPali = False
+        return self.isPali
 
 class PaliInt(PaliStr):
- def __init__(self):
- self.isPali = False
+    def __init__(self):
+        super().__init__()  # Call the constructor of the base class PaliStr
 
- def chkPalindrome(self, val):
- temp = val
- rev = 0
- while temp != 0:
- dig = temp % 10
- rev = (rev*10) + dig
- temp = temp //10
+    def chkPalindrome(self, val):
+        temp = val
+        rev = 0
+        while temp != 0:
+            dig = temp % 10
+            rev = (rev * 10) + dig
+            temp = temp // 10
 
- if val == rev:
- self.isPali = True
- else:
- self.isPali = False
+        if val == rev:
+            self.isPali = True
+        else:
+            self.isPali = False
 
- return self.isPali
-st = input("Enter a string : ")
+        return self.isPali
+
+st = input("Enter a string: ")
 stObj = PaliStr()
 if stObj.chkPalindrome(st):
- print("Given string is a Palindrome")
+    print("Given string is a Palindrome")
 else:
- print("Given string is not a Palindrome")
-val = int(input("Enter a integer : ")) 
+    print("Given string is not a Palindrome")
+
+val = int(input("Enter an integer: "))
 intObj = PaliInt()
 if intObj.chkPalindrome(val):
- print("Given integer is a Palindrome")
+    print("Given integer is a Palindrome")
 else:
- print("Given integer is not a Palindrome")
+    print("Given integer is not a Palindrome")
+
+9a
+import requests
+import os
+from bs4 import BeautifulSoup
+
+url = 'https://xkcd.com/1/'
+
+if not os.path.exists('xkcd_comics'):
+    os.makedirs('xkcd_comics')
+
+while True:
+    res = requests.get(url)
+    res.raise_for_status()
+
+    soup = BeautifulSoup(res.text, 'html.parser')
+
+    comic_elem = soup.select('#comic img')
+    if comic_elem == []:
+        print('Could not find comic image.')
+    else:
+        comic_url = 'https:' + comic_elem[0].get('src')
+        print(f'Downloading {comic_url}...')
+        res = requests.get(comic_url)
+        res.raise_for_status()
+
+        image_file = open(os.path.join('xkcd_comics', os.path.basename(comic_url)), 'wb')
+        for chunk in res.iter_content(100000):
+            image_file.write(chunk)
+        image_file.close()
+
+    prev_link = soup.select('a[rel="prev"]')[0]
+    if not prev_link:
+        break
+    url = 'https://xkcd.com' + prev_link.get('href')
+
+print('All comics downloaded.')
+
+9b
+
+from openpyxl import Workbook
+from openpyxl.styles import Font
+
+wb = Workbook()
+sheet_language = wb.active
+sheet_language.title = "Language"
+sheet_capital = wb.create_sheet(title="Capital")
+
+lang = ["Kannada", "Telugu", "Tamil"]
+state = ["Karnataka", "Telangana", "Tamil Nadu"]
+capital = ["Bengaluru", "Hyderabad", "Chennai"]
+code = ['KA', 'TS', 'TN']
+
+def create_sheet(sheet, headers):
+    sheet.append(headers)
+    for i in range(3):
+        sheet.append([state[i], lang[i], code[i]])
+    for cell in sheet["1:1"]:
+        cell.font = Font(bold=True)
+
+create_sheet(sheet_language, ["State", "Language", "Code"])
+create_sheet(sheet_capital, ["State", "Capital", "Code"])
+
+wb.save("demo.xlsx")
+
+def search(sheet, header, search_code):
+    for row in sheet.iter_rows(min_row=2, max_row=4, values_only=True):
+        if row[2] == search_code:
+            print(f"Corresponding {header} for code {search_code} is {row[1]}")
+
+search(sheet_capital, "capital", input("Enter state code for finding capital: "))
+search(sheet_language, "language", input("Enter state code for finding language: "))
+
+wb.close()
+
+10a
+
+num = int(input("Enter page number you want combine from multiple documents "))
+pdf1 = open('birds.pdf', 'rb')
+pdf2 = open('birdspic.pdf', 'rb')
+pdf_writer = PdfWriter()
+pdf1_reader = PdfReader(pdf1)
+page = pdf1_reader.pages[num - 1]
+pdf_writer.add_page(page)
+pdf2_reader = PdfReader(pdf2)
+page = pdf2_reader.pages[num - 1]
+pdf_writer.add_page(page)
+with open('output.pdf', 'wb') as output:
+ pdf_writer.write(output)
+
+10b
+
+import json
+
+weather_data = {
+    "coord": {
+        "lon": -73.99,
+        "lat": 40.73
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 15.45,
+        "feels_like": 12.74,
+        "temp_min": 14.44,
+        "temp_max": 16.11,
+        "pressure": 1017,
+        "humidity": 64
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 4.63,
+        "deg": 180
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1617979985,
+    "sys": {
+        "type": 1,
+        "id": 5141,
+        "country": "US",
+        "sunrise": 1617951158,
+        "sunset": 1618000213
+    },
+    "timezone": -14400,
+    "id": 5128581,
+    "name": "New York",
+    "cod": 200
+}
+
+current_temp = weather_data['main']['temp']
+humidity = weather_data['main']['humidity']
+weather_desc = weather_data['weather'][0]['description']
+
+print(f"Current temperature: {current_temp}°C")
+print(f"Humidity: {humidity}%")
+print(f"Weather description: {weather_desc}")
+
 
 PART B:
 
