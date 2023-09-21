@@ -26,6 +26,7 @@ for i in range(10):
         print(str(i),"appears", str_val.count(str(i)), "times");
 
 2A
+
 def fn(n):
     if n == 1:
         return 0
@@ -33,6 +34,7 @@ def fn(n):
         return 1
     else:
         return fn(n-1) + fn(n-2)
+    
 
 num = int(input("Enter a number : "))
 
