@@ -126,51 +126,51 @@ insertion_sort(input_list)
 print("Sorted list using Insertion Sort:", input_list)
 
 MERGE SORT
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-        
-    mid = len(arr) // 2
-    left_half = arr[:mid]
-    right_half = arr[mid:]
-    
-    left_half = merge_sort(left_half)
-    right_half = merge_sort(right_half)
-    
-    return merge(left_half, right_half)
+def mergeSort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        sub_array1 = arr[:mid]
+        sub_array2 = arr[mid:]
+        mergeSort(sub_array1)
+        mergeSort(sub_array2)
 
-def merge(left, right):
-    merged = []
-    left_index, right_index = 0, 0
-    
-    while left_index < len(left) and right_index < len(right):
-        if left[left_index] < right[right_index]:
-            merged.append(left[left_index])
-            left_index += 1
-        else:
-            merged.append(right[right_index])
-            right_index += 1
-    
-    merged.extend(left[left_index:])
-    merged.extend(right[right_index:])
-    return merged
+        i = j = k = 0
+        while i < len(sub_array1) and j < len(sub_array2):
+            if sub_array1[i] < sub_array2[j]:
+                arr[k] = sub_array1[i]
+                i += 1
+            else:
+                arr[k] = sub_array2[j]
+                j += 1
+            k += 1
 
-if __name__ == "__main__":
-    input_list = [12, 11, 13, 5, 6, 7]
-    sorted_list = merge_sort(input_list)
-    print("Original List:", input_list)
-    print("Sorted List:", sorted_list)
+        while i < len(sub_array1):
+            arr[k] = sub_array1[i]
+            i += 1
+            k += 1
+
+        while j < len(sub_array2):
+            arr[k] = sub_array2[j]
+            j += 1
+            k += 1
+
+arr = input('Enter the list of numbers: ').split()
+arr = [int(x) for x in arr]
+mergeSort(arr)
+print('Sorted list: ', end='')
+print(arr)
+
 
 4B
 def roman2Dec(romStr):
-    roman_dict ={'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-    romanBack = list(romStr)[::-1]
+    roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+    romanBack = list(romStr.upper())[::-1] 
     value = 0
-    rightVal = roman_dict[romanBack[0]]  
+    rightVal = roman_dict[romanBack[0]]
     for numeral in romanBack:
         leftVal = roman_dict[numeral]
         if leftVal < rightVal:
-           value -= leftVal
+            value -= leftVal
         else:
             value += leftVal
         rightVal = leftVal
@@ -182,213 +182,55 @@ print(roman2Dec(romanStr))
 5A
 import re
 
-def isphonenumber_regex(number):
-    pattern = r'^\d{3}-\d{3}-\d{4}$'
-    return re.match(pattern, number) is not None
+def isphonenumber(numStr):
+    if len(numStr) != 12:
+        return False
+    for i in range(len(numStr)):
+        if i == 3 or i == 7:
+            if numStr[i] != "-":
+                return False
+        else:
+            if not numStr[i].isdigit():
+                return False
+    return True
 
-# Test the function
-phone_number = "415-555-4242"
-if isphonenumber_regex(phone_number):
-    print(f"{phone_number} is a valid phone number.")
+def chkphonenumber(numStr):
+    ph_no_pattern = re.compile(r'^\d{3}-\d{3}-\d{4}$')
+    if ph_no_pattern.match(numStr):
+        return True
+    else:
+        return False
+
+ph_num = input("Enter a phone number : ")
+print("Without using Regular Expression")
+if isphonenumber(ph_num):
+    print("Valid phone number")
 else:
-    print(f"{phone_number} is not a valid phone number.")
+    print("Invalid phone number")
+
+print("Using Regular Expression")
+if chkphonenumber(ph_num):
+    print("Valid phone number")
+else:
+    print("Invalid phone number")
+
     
 5B
-import re
-
-def find_phone_numbers(text):
-    phone_pattern = r'\+\d{11}'
-    phone_numbers = re.findall(phone_pattern, text)
-    return phone_numbers
-
-def find_email_addresses(text):
-    email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-    email_addresses = re.findall(email_pattern, text)
-    return email_addresses
-
-def main():
-    file_path = 'textfile.txt'  # Update this with the path to your text file
-    try:
-        with open(file_path, 'r') as file:
-            content = file.read()
-            phone_numbers = find_phone_numbers(content)
-            email_addresses = find_email_addresses(content)
-            
-            print("Phone Numbers found:")
-            for number in phone_numbers:
-                print(number)
-            
-            print("\nEmail Addresses found:")
-            for email in email_addresses:
-                print(email)
-    except FileNotFoundError:
-        print(f"File not found: {file_path}")
-    except Exception as e:
-        print("An error occurred:", str(e))
-
-if __name__ == "__main__":
-    main()
-
 
 import re
-
-1
-
-2
-
-3
 
 phone_regex = re.compile(r'\+\d{12}')
-
-email_regex = re.compile(r'[A-Za-z0-9. ]+@[A-Za-z0-9]+\.[A-Za-z]{2,}')
-
-4
-
-15
-
-16
+email_regex = re.compile(r'[A-Za-z0-9._]+@[A-Za-z0-9]+\.[A-Z|a-z]{2,}')
 
 with open('example.txt', 'r') as f:
+    for line in f:
+        matches = phone_regex.findall(line)
+        for match in matches:
+            print(match)
+        matches = email_regex.findall(line)
+        for match in matches:
+            print(match)
 
-7
-
-8
-
-9
-
-10
-
-for line in f:
-
-I
-
-# Search for phone numbers in the line
-
-matches = phone_regex.findall(line) for match in matches:
-
-print (match)
-
-11
-
-12
-
-13
-
-14
-
-15
-
-matches email_regex. findall (line)
-
-for match in matches:
-
-print(match)
-
-
-
-
-
-
-
-import re
-
-2
-
-def isphonenumber (numStr);
-
-3
-
-if len(numStr) != 12: return False
-
-4
-
-5
-
-for i in range(len(numStr)): if i=-3 or i==7:
-
-6
-
-7
-
-if numstr[i] != "-";
-
-8
-
-return False
-
-9
-
-else:
-
-10
-
-if numstr[i].isdigit() == False:
-
-11
-
-return False
-
-12
-
-return True
-
-A
-
-23
-
-13
-
-14
-
-15
-
-def chkphonenumber (numStr):
-
-ph_no_pattern= re.compile(r'^\d{3}-\d{3}-\d{4}$") if ph_no_pattern.match(numStr):
-
-return True else:
-
-16
-
-17
-
-18
-
-19
-
-return False
-
-20
-
-21
-
-22
-
-23
-
-24
-
-25
-
-26
-
-ph_num = input("Enter a phone number: ")
-
-print("without using Regular Expression") if isphonenumber (ph_num):
-
-print("Valid phone number")
-
-else:
-
-print("Invalid phone number")
-
-print("Using Regular Expression") if chkphonenumber (ph_num): 27
-
-print("Valid phone number") 29
-
-else:
-
-print("Invalid phone number")
 
 6a
 import os.path
@@ -555,3 +397,21 @@ if intObj.chkPalindrome(val):
  print("Given integer is a Palindrome")
 else:
  print("Given integer is not a Palindrome")
+
+PART B:
+
+AREA OF TRIANGLE:
+height = int(input("Enter the height:"))
+base = int(input("enter the base:"))
+area = 1/2 * base * height
+print("the area of triangle:",area)
+
+AREA OF CIRCLE:
+import math
+
+radius = int(input("enter the radius:"))
+area = math.pi * radius * radius
+print("area of circle:",area)
+
+
+
