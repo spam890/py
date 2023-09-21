@@ -565,5 +565,44 @@ radius = int(input("enter the radius:"))
 area = math.pi * radius * radius
 print("area of circle:",area)
 
+SIMPLE / COMPOUND INTEREST
+
+def simple_interest(principal, rate, time):
+    interest = (principal * rate * time) / 100
+    return interest
+
+def compound_interest(principal, rate, time):
+    amount = principal * (1 + rate/100)**time
+    interest = amount - principal
+    return interest
+
+principal = float(input("Enter the principal amount: "))
+rate = float(input("Enter the rate of interest: "))
+time = float(input("Enter the time period (in years): "))
+
+simple = simple_interest(principal, rate, time)
+print(f"Simple Interest: {simple:.2f}")
+
+compound = compound_interest(principal, rate, time)
+print(f"Compound Interest: {compound:.2f}")
+
+SUM FIRST 10 ODD / EVEN NUMBERS
+
+def sum_first_n_numbers(n, is_even=True):
+    total_sum = 0
+    num = 2 if is_even else 1
+    count = 0
+    while count < n:
+        total_sum += num
+        num += 2 if is_even else 2
+        count += 1
+    return total_sum
+
+sum_of_first_10_even = sum_first_n_numbers(10, is_even=True)
+print("Sum of the first 10 even numbers:", sum_of_first_10_even)
+
+sum_of_first_10_odd = sum_first_n_numbers(10, is_even=False)
+print("Sum of the first 10 odd numbers:", sum_of_first_10_odd)
+
 
 
